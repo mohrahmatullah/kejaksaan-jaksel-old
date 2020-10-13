@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2019 at 08:55 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.1.20
+-- Generation Time: Oct 13, 2020 at 11:54 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -580,10 +580,32 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `nik`, `nama`, `alamat`, `kabupaten`, `propinsi`, `telp`, `email`, `jabatan_id`, `status`, `deleted`, `update_time`) VALUES
-(51, '10101010', 'Agus', 'Jl. Raya Pemda Bojong Gede', 3201, 32, '(0251) 805-5808', 'dje_ro@yahoo.co.id', 3, 1, 0, '2018-12-16 03:27:45'),
-(52, '202020', 'Jono', 'Jl. Sudirman', 1107, 11, '0192827111111', 'rusmanto_ki@ymail.com', 1, 1, 0, '2018-12-16 12:36:53'),
-(53, '030303', 'Lukman', 'Jl. Sudirman', 5103, 51, '(0251) 805-5808', 'putripriyatna6@gmail.com', 2, 1, 0, '2018-12-16 16:57:31'),
-(54, '404040', 'Rusmanto', 'Jl. Sudirman', 3201, 32, '(0251) 805-5808', 'rusmantoki23@gmail.com', 4, 1, 0, '2019-05-31 17:07:42');
+(60, '19790817 200212 1 002', 'AGUS SUPRIATNA, SH', 'Jl. puri citayam permai II', 3201, 32, '085695190817', 'putripriyatna6@gmail.com', 2, 1, 0, '2019-12-05 07:29:32'),
+(61, '19740603 199903 1 004', 'ANANG SUPRIATNA, SH.MH.', 'Depok', 3276, 32, '', '', 1, 1, 0, '2019-12-12 06:25:11'),
+(62, '19750710 199903 2 002', 'Wahyu yuli Suryani, SH. MH ', '', 3171, 31, '', '', 2, 1, 0, '2019-12-12 06:28:45'),
+(63, '1434314134', 'rahmat', '', 0, 0, '', '', 2, 1, 0, '2019-12-12 20:12:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pegawai_chain`
+--
+
+CREATE TABLE `pegawai_chain` (
+  `id` int(11) NOT NULL,
+  `pegawai_id` int(11) NOT NULL,
+  `parent` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pegawai_chain`
+--
+
+INSERT INTO `pegawai_chain` (`id`, `pegawai_id`, `parent`, `created`) VALUES
+(4, 60, 61, '2019-12-05 00:29:32'),
+(5, 62, 61, '2019-12-11 23:28:45'),
+(7, 63, 0, '2019-12-12 13:12:09');
 
 -- --------------------------------------------------------
 
@@ -604,7 +626,6 @@ CREATE TABLE `pegawai_jabatan` (
 INSERT INTO `pegawai_jabatan` (`id_jabatan`, `nama`, `status`) VALUES
 (1, 'Kajari', 1),
 (2, 'Kasie', 1),
-(3, 'Kasub', 1),
 (4, 'Staff', 1);
 
 -- --------------------------------------------------------
@@ -631,7 +652,7 @@ CREATE TABLE `peraturan` (
 --
 
 INSERT INTO `peraturan` (`id_peraturan`, `nomor`, `tahun`, `tentang`, `tanggal_penetapan`, `file`, `created_by`, `create_date`, `update_by`, `update_date`) VALUES
-(10, 'PER-006/A/JA/07/2017', 2017, 'ORGANISASI DAN TATA KERJA KEJAKSAAN REPUBLIK INDONESIA', '2017-03-08', '161218021502.pdf', 1, '2018-12-16', 0, '0000-00-00');
+(14, 'PER-006/A/JA/07/2017', 2017, 'Organisasi dan tata kerja kejaksaan republik Indonesia', '2019-07-20', NULL, 14, '2019-12-11', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -736,7 +757,7 @@ CREATE TABLE `sop` (
 --
 
 INSERT INTO `sop` (`id_sop`, `peraturan_id`, `nama`, `deskripsi`, `file`, `created_by`, `create_date`, `update_by`, `update_date`) VALUES
-(4, 10, 'SOP Pengawalan Tahan Pidum', '<p>Pengawalan / Penjemputan tahanan dari rutan</p>', '100619034526.JPG', 1, '2019-06-10', 1, '2019-06-10');
+(7, 16, 'SOP pengawalan dan pengamanan tahanan', 'SOP pengawalan dan pengamanan tahanan', '111219100930.PDF', 14, '2019-12-11', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -762,8 +783,7 @@ CREATE TABLE `uraian` (
 --
 
 INSERT INTO `uraian` (`id_uraian`, `sop_id`, `pegawai_id`, `nama`, `deskripsi`, `file`, `created_by`, `create_date`, `update_by`, `update_date`) VALUES
-(1, 4, 54, 'Sprint kajari B-   /O.1.14/01/2019', '<p>Sprint pengawalan rutan cipinang<br></p>', '161218101127.pdf', 8, '2018-12-16', 1, '2019-06-18'),
-(2, 4, 54, 'sprint kajari B- 02/O.1.14/012019', '<p>sprint kajari pengawalan di ruang sidang<br></p>', '161218101201.pdf', 8, '2018-12-16', 1, '2019-06-18');
+(4, 7, 60, 'Pengawalan dan pengamanan tahanan', 'Sprint pengawalan pidum', NULL, 14, '2019-12-11', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -787,10 +807,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `pegawai_id`, `username`, `password`, `email`, `nama`, `level`) VALUES
 (1, 0, 'administrator', 'e10adc3949ba59abbe56e057f20f883e', 'admin@admin.com', 'Administrator', 'superadmin'),
-(8, 51, 'agus', 'e10adc3949ba59abbe56e057f20f883e', 'dje_ro@yahoo.co.id', 'Agus', 'admin'),
-(9, 52, 'jono', 'e10adc3949ba59abbe56e057f20f883e', 'rusmanto_ki@ymail.com', 'Jono', 'admin'),
-(10, 53, 'lukman', 'e10adc3949ba59abbe56e057f20f883e', 'putripriyatna6@gmail.com', 'Lukman', 'admin'),
-(11, 54, 'rusmanto', 'e10adc3949ba59abbe56e057f20f883e', 'rusmantoki23@gmail.com', 'Rusmanto', 'admin');
+(17, 60, 'agussupriatna,sh', 'e10adc3949ba59abbe56e057f20f883e', 'putripriyatna6@gmail.com', 'AGUS SUPRIATNA, SH', 'admin'),
+(18, 61, 'anangsupriatna,sh.mh.', 'e10adc3949ba59abbe56e057f20f883e', '', 'ANANG SUPRIATNA, SH.MH.', 'admin'),
+(19, 62, 'wahyuyulisuryani,sh.mh', 'e10adc3949ba59abbe56e057f20f883e', '', 'Wahyu yuli Suryani, SH. MH ', 'admin'),
+(20, 63, 'rahmat', 'e10adc3949ba59abbe56e057f20f883e', '', 'rahmat', 'admin');
 
 -- --------------------------------------------------------
 
@@ -822,6 +842,14 @@ CREATE TABLE `verification` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `verification`
+--
+
+INSERT INTO `verification` (`id_verification`, `pegawai_id`, `peraturan_id`, `sop_id`, `uraian_id`, `laporan`, `file_before`, `time_before`, `file_after`, `time_after`, `approved_kasub`, `approved_kasub_time`, `approved_kasie`, `approved_kasie_time`, `approved_kajari`, `approved_kajari_time`, `created_by`, `create_date`, `update_by`, `update_date`) VALUES
+(5, 54, 10, 4, '1', '', '180619014910_1.jpg', '2019-06-18 13:47:00', '', '0000-00-00 00:00:00', 0, NULL, 0, NULL, 0, NULL, 11, '2019-06-18', 11, '2019-08-11'),
+(6, 54, 10, 4, '2', '', '110819124639_1.jpg', '2019-08-11 12:46:00', '', '0000-00-00 00:00:00', 0, NULL, 0, NULL, 0, NULL, 11, '2019-08-11', 0, '0000-00-00');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -836,6 +864,12 @@ ALTER TABLE `kabupaten`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`id_pegawai`);
+
+--
+-- Indexes for table `pegawai_chain`
+--
+ALTER TABLE `pegawai_chain`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pegawai_jabatan`
@@ -899,7 +933,13 @@ ALTER TABLE `kabupaten`
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT for table `pegawai_chain`
+--
+ALTER TABLE `pegawai_chain`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pegawai_jabatan`
@@ -911,7 +951,7 @@ ALTER TABLE `pegawai_jabatan`
 -- AUTO_INCREMENT for table `peraturan`
 --
 ALTER TABLE `peraturan`
-  MODIFY `id_peraturan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_peraturan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `propinsi`
@@ -929,25 +969,25 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `sop`
 --
 ALTER TABLE `sop`
-  MODIFY `id_sop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_sop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `uraian`
 --
 ALTER TABLE `uraian`
-  MODIFY `id_uraian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_uraian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `verification`
 --
 ALTER TABLE `verification`
-  MODIFY `id_verification` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_verification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
